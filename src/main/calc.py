@@ -1,3 +1,6 @@
+import numpy
+
+
 class Calc:
 
     def __init__(self, a, b):
