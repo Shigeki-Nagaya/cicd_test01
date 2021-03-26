@@ -1,11 +1,12 @@
 [tool.poetry]
-name = "cicd_test01"
+name = "src"
 version = "0.1.0"
 description = ""
-authors = ["Shigeki"]
+authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
-python = "3.6"
+python = "^3.9"
+pytest-cov = "^2.11.1"
 
 [tool.poetry.dev-dependencies]
 
