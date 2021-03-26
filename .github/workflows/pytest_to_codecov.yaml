@@ -49,9 +49,9 @@ jobs:
       - name: Lint with flake8
         run: |
           # Python 構文エラーまたは未定義の名前がある場合はビルドを停止する
-          poetry run flake8 ./src/main --count --select=E9,F63,F7,F82 --show-source --statistics
+          poetry run flake8 ./src/ --count --select=E9,F63,F7,F82 --show-source --statistics
           # exit-zeroはすべてのエラーを警告として扱う。 GitHubのエディタの幅は127文字
-          poetry run flake8 ./src/main --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+          poetry run flake8 ./src/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
       # pytest を実行する
       - name: Run Tests
@@ -68,3 +68,6 @@ jobs:
           fail_ci_if_error: true
           name: codecov-umbrella # optional
           verbose: true # optional (default = false)
+
+        # To see the result of Coverage
+        # https://codecov.io/gh/Shigeki-Nagaya/cicd_test01
