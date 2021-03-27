@@ -63,10 +63,12 @@ jobs:
         run: tree
 
       # アップロードするdfhs.tgzへ日時を付与
+      # DHFS_NAME="dhfs-${DATE_STR}.tgz"
       - name: Make artifact name
+        id: step-artifact-name
         run: |
           DATE_STR=$(date "+%Y%m%d-%H%M%S")
-          DHFS_NAME="dhfs-${DATE_STR}.tgz"
+          echo '::set-output name=DHFS_NAME::"dhfs-${DATE_STR}.tgz"'
           echo "$DHFS_NAME"
 
       # 成果物をgoogle driveへコピーする
@@ -75,7 +77,7 @@ jobs:
         with:
           skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
           upload-from: ./dhfs.tgz
-          upload-to: _actions_artifacts/"$DHFS_NAME"
+          upload-to: _actions_artifacts/${{ steps.step-artifact-name.outputs.DHFS_NAME }}
 
           # For those who set up Google Drive API client ID and secret themselves
           google-client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
