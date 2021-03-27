@@ -29,15 +29,15 @@ jobs:
 
       # 確認
       - name: Status check
-        working-directory: $GITHUB_WORKSPACE
         run: |
+          cd $GITHUB_WORKSPACE
           echo -e $(pwd)
           echo -e $(ls -la)
 
       # 作業用ディレクトリを作成
       - name: Make Directory
-        working-directory: $GITHUB_WORKSPACE
         run: |
+          cd $GITHUB_WORKSPACE
           mkdir _deploy
           echo -e $(ls -la)
           cd _deploy
