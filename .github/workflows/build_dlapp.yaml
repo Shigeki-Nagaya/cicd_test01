@@ -59,7 +59,7 @@ jobs:
       # デプロイ用tgzを作成する
       - name: Make Deploy file
         run: |
-          tar zcvf ${{ GITHUB_WORKSPACE }}/dhfs.tgz .
+          tar zcvf ../dhfs.tgz .
           cd ..
           pwd
           ls -la
