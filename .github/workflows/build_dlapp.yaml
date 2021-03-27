@@ -1,5 +1,5 @@
 # ここに設定した名前がActions上に表示される
-name: pytest
+name: build
 
 on:
   pull_request:
@@ -7,8 +7,8 @@ on:
       - main
 
 jobs:
-  pytest:
-    name: Run tests with pytest
+  build_dlapp:
+    name: build dlapp using google drive assets
     # 実行環境として `ubuntu-latest` という名前のものを選ぶ
     runs-on: ubuntu-latest
     # 複数の Python のバージョンでテストするために `strategy.matrix` を設定する
@@ -19,6 +19,7 @@ jobs:
       # 作業用ディレクトリを作成
       - name: Make Directory
         run: |
+          cd $GITHUB_WORKSPACE
           mkdir _deploy
           echo -e $(ls -la)
           cd _deploy
@@ -28,6 +29,7 @@ jobs:
       - name: Download from Google Drive
         uses: satackey/action-google-drive@v1
         with:
+          working-directory: $GITHUB_WORKSPACE
           skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
           download-from: _actions_assets/dlapp_skelton.tgz
           download-to: .
