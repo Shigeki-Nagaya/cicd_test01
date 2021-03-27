@@ -35,6 +35,12 @@ jobs:
           google-client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
           google-client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
 
+      # アセットの確認
+      - name: Status check
+        run: |
+          echo -e $(pwd)
+          echo -e $(ls -la)
+
       # アセットを解凍
       - name: Extract tgz
         run: |
