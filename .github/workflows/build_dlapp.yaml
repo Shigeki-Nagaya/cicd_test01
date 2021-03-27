@@ -31,22 +31,19 @@ jobs:
       # アセットを解凍
       - name: Status check
         run: |
-          echo -e $(pwd)
-          echo -e $(ls -la)
+          pwd
+          ls -la
           mkdir _deploy
-          echo -e $(pwd)
-          echo -e $(ls -la)
+          ls -la
           cd _deploy
           tar xvf ../dlapp_skelton.tgz
-          echo -e $(pwd)
-          echo -e $(ls -la)
+          tree
 
       # チェックアウト先に移動
       - name: ExtractMake Directory and Extract tgz
         run: |
           cd _deploy/drt
-          echo -e $(pwd)
-          echo -e $(ls -la)
+          pwd
 
       # リポジトリをチェックアウト
       # See: https://github.com/actions/checkout
@@ -56,16 +53,16 @@ jobs:
       # チェックアウト結果を確認
       - name: Echo checkout result
         run: |
-          echo -e $(pwd)
-          echo -e $(tree)
+          pwd
+          tree
 
       # デプロイ用tgzを作成する
       - name: Make Deploy file
         run: |
-          tar zcvf ../dhfs.tgz .
+          tar zcvf ${{ GITHUB_WORKSPACE }}/dhfs.tgz .
           cd ..
-          echo -e $(pwd)
-          echo -e $(ls -la)
+          pwd
+          ls -la
 
       # 成果物をgoogle driveへコピーする
       - name: Upload to Google Drive
