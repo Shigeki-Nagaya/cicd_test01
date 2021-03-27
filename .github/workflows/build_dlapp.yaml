@@ -28,18 +28,18 @@ jobs:
           google-client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
 
       # 作業用ディレクトリを作成
+      - name: Make package dir
+        run: mkdir _deploy
+
       # アセットを解凍
-      - name: Status check
+      - name: Unarchive dlapp skelton
         run: |
-          pwd
-          ls -la
-          echo "mkdir _deploy"
-          mkdir _deploy
-          ls -la
           cd _deploy
-          echo "tar xvf ../dlapp_skelton.tgz"
           tar xvf ../dlapp_skelton.tgz
-          tree
+
+      # 確認
+      - name: Check Directory Tree
+        run: tree
 
       # リポジトリをチェックアウト
       # See: https://github.com/actions/checkout
@@ -48,18 +48,19 @@ jobs:
         with:
           path: _deploy/drt
 
-      # チェックアウト結果を確認
-      - name: Echo checkout result
-        run: |
-          tree
+      # 確認
+      - name: Check Directory Tree
+        run: tree
 
       # デプロイ用tgzを作成する
       - name: Make Deploy file
         run: |
           cd _deploy/drt
-          tar --exclude='.git' --exclude='.gitignore' -zcvf ../../dhfs.tgz . 
-          cd ..
-          tree
+          tar --exclude='.git' --exclude='.gitignore' -zcvf ../../dhfs.tgz .
+
+      # 確認
+      - name: Check Directory Tree
+        run: tree
 
       # 成果物をgoogle driveへコピーする
       - name: Upload to Google Drive
