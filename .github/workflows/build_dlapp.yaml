@@ -57,7 +57,7 @@ jobs:
       - name: Make Deploy file
         run: |
           cd _deploy/drt
-          tar zcvf ../dhfs.tgz .
+          tar zcvf --exclude .git --exclude .gitignore ../../dhfs.tgz . 
           cd ..
           tree
 
