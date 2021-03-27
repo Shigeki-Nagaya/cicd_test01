@@ -62,13 +62,19 @@ jobs:
       - name: Check Directory Tree
         run: tree
 
+      # 確認
+      - name: Make artifact name
+        run: |
+          DATE_STR=$(date "+%Y%m%d-%H%M%S")
+          DHFS_NAME="dhfs-${DATE_STR}.tgz"
+
       # 成果物をgoogle driveへコピーする
       - name: Upload to Google Drive
         uses: satackey/action-google-drive@v1
         with:
           skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
           upload-from: ./dhfs.tgz
-          upload-to: _actions_artifacts/dhfs.tgz
+          upload-to: _actions_artifacts/$DHFS_NAME
 
           # For those who set up Google Drive API client ID and secret themselves
           google-client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
