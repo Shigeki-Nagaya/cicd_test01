@@ -20,9 +20,9 @@ jobs:
       - name: Make Directory
         run: |
           mkdir _deploy
-          echo $(ls -la)
+          echo -e $(ls -la)
           cd _deploy
-          echo $(pws)
+          echo -e $(pwd)
 
       # アセットをgoogle driveからコピー
       - name: Download from Google Drive
@@ -39,14 +39,14 @@ jobs:
       - name: Extract tgz
         run: |
           tar xvf ../dlapp_skelton.tgz
-          echo $(ls -la)
+          echo -e $(ls -la)
 
       # チェックアウト先に移動
       - name: ExtractMake Directory and Extract tgz
         run: |
           cd drt
-          echo $(pwd)
-          echo $(ls -la)
+          echo -e $(pwd)
+          echo -e $(ls -la)
 
       # リポジトリをチェックアウト
       # See: https://github.com/actions/checkout
@@ -56,16 +56,16 @@ jobs:
       # チェックアウト結果を確認
       - name: Echo checkout result
         run: |
-          echo $(pwd)
-          echo $(ls -la)
+          echo -e $(pwd)
+          echo -e $(ls -la)
 
       # デプロイ用tgzを作成する
       - name: Make Deploy file
         run: |
           tar zcvf ../dhfs.tgz .
           cd ..
-          echo $(pwd)
-          echo $(ls -la)
+          echo -e $(pwd)
+          echo -e $(ls -la)
 
       # 成果物をgoogle driveへコピーする
       - name: Upload to Google Drive
