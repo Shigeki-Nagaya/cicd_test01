@@ -68,8 +68,9 @@ jobs:
         id: step-artifact-name
         run: |
           DATE_STR=$(date "+%Y%m%d-%H%M%S")
-          echo "::set-output name=DHFS_NAME::dhfs-${DATE_STR}.tgz"
-          echo "${{ steps.step-artifact-name.outputs.DHFS_NAME }}"
+          DHFS_NAME="dhfs-${DATE_STR}.tgz"
+          echo "::set-output name=DHFS_NAME::${DHFS_NAME}"
+          echo "${DHFS_NAME}"
 
       # 成果物をgoogle driveへコピーする
       - name: Upload to Google Drive
