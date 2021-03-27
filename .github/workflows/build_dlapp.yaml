@@ -27,6 +27,13 @@ jobs:
           google-client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
           google-client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
 
+      # 確認
+      - name: Status check
+        working-directory: $GITHUB_WORKSPACE
+        run: |
+          echo -e $(pwd)
+          echo -e $(ls -la)
+
       # 作業用ディレクトリを作成
       - name: Make Directory
         working-directory: $GITHUB_WORKSPACE
@@ -36,7 +43,7 @@ jobs:
           cd _deploy
           echo -e $(pwd)
 
-      # アセットの確認
+      # 確認
       - name: Status check
         run: |
           echo -e $(pwd)
