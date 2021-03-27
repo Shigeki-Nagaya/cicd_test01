@@ -16,26 +16,25 @@ jobs:
       matrix:
         python-version: [3.8]
     steps:
-      # 作業用ディレクトリを作成
-      - name: Make Directory
-        run: |
-          cd $GITHUB_WORKSPACE
-          mkdir _deploy
-          echo -e $(ls -la)
-          cd _deploy
-          echo -e $(pwd)
-
       # アセットをgoogle driveからコピー
       - name: Download from Google Drive
         uses: satackey/action-google-drive@v1
         with:
-          working-directory: $GITHUB_WORKSPACE
           skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
           download-from: _actions_assets/dlapp_skelton.tgz
-          download-to: .
+          download-to: $GITHUB_WORKSPACE
           # For those who set up Google Drive API client ID and secret themselves
           google-client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
           google-client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+
+      # 作業用ディレクトリを作成
+      - name: Make Directory
+        working-directory: $GITHUB_WORKSPACE
+        run: |
+          mkdir _deploy
+          echo -e $(ls -la)
+          cd _deploy
+          echo -e $(pwd)
 
       # アセットの確認
       - name: Status check
