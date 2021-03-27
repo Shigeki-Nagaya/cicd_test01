@@ -22,7 +22,7 @@ jobs:
         with:
           skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
           download-from: _actions_assets/dlapp_skelton.tgz
-          download-to: $GITHUB_WORKSPACE
+          download-to: .
           # For those who set up Google Drive API client ID and secret themselves
           google-client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
           google-client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
@@ -30,14 +30,12 @@ jobs:
       # 確認
       - name: Status check
         run: |
-          cd $GITHUB_WORKSPACE
           echo -e $(pwd)
           echo -e $(ls -la)
 
       # 作業用ディレクトリを作成
       - name: Make Directory
         run: |
-          cd $GITHUB_WORKSPACE
           mkdir _deploy
           echo -e $(ls -la)
           cd _deploy
