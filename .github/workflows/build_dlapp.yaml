@@ -33,36 +33,33 @@ jobs:
         run: |
           pwd
           ls -la
+          echo "mkdir _deploy"
           mkdir _deploy
           ls -la
           cd _deploy
+          echo "tar xvf ../dlapp_skelton.tgz"
           tar xvf ../dlapp_skelton.tgz
           tree
-
-      # チェックアウト先に移動
-      - name: ExtractMake Directory and Extract tgz
-        run: |
-          cd _deploy/drt
-          pwd
 
       # リポジトリをチェックアウト
       # See: https://github.com/actions/checkout
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          path: _deploy/drt
 
       # チェックアウト結果を確認
       - name: Echo checkout result
         run: |
-          pwd
           tree
 
       # デプロイ用tgzを作成する
       - name: Make Deploy file
         run: |
+          cd _deploy/drt
           tar zcvf ../dhfs.tgz .
           cd ..
-          pwd
-          ls -la
+          tree
 
       # 成果物をgoogle driveへコピーする
       - name: Upload to Google Drive
