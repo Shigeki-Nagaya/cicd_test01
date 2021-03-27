@@ -69,7 +69,7 @@ jobs:
         run: |
           DATE_STR=$(date "+%Y%m%d-%H%M%S")
           echo "::set-output name=DHFS_NAME::dhfs-${DATE_STR}.tgz"
-          echo "$DHFS_NAME"
+          echo "${{ steps.step-artifact-name.outputs.DHFS_NAME }}"
 
       # 成果物をgoogle driveへコピーする
       - name: Upload to Google Drive
