@@ -17,7 +17,7 @@ jobs:
         python-version: [3.8]
     steps:
       # アセットをgoogle driveからコピー
-      - name: Download from Google Drive
+      - name: Download assets from Google Drive
         uses: satackey/action-google-drive@v1
         with:
           skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
@@ -27,36 +27,24 @@ jobs:
           google-client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
           google-client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
 
-      # 確認
+      # 作業用ディレクトリを作成
+      # アセットを解凍
       - name: Status check
         run: |
           echo -e $(pwd)
           echo -e $(ls -la)
-
-      # 作業用ディレクトリを作成
-      - name: Make Directory
-        run: |
           mkdir _deploy
+          echo -e $(pwd)
           echo -e $(ls -la)
           cd _deploy
-          echo -e $(pwd)
-
-      # 確認
-      - name: Status check
-        run: |
-          echo -e $(pwd)
-          echo -e $(ls -la)
-
-      # アセットを解凍
-      - name: Extract tgz
-        run: |
           tar xvf ../dlapp_skelton.tgz
+          echo -e $(pwd)
           echo -e $(ls -la)
 
       # チェックアウト先に移動
       - name: ExtractMake Directory and Extract tgz
         run: |
-          cd drt
+          cd _deploy/drt
           echo -e $(pwd)
           echo -e $(ls -la)
 
@@ -69,7 +57,7 @@ jobs:
       - name: Echo checkout result
         run: |
           echo -e $(pwd)
-          echo -e $(ls -la)
+          echo -e $(tree)
 
       # デプロイ用tgzを作成する
       - name: Make Deploy file
