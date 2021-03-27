@@ -2,9 +2,6 @@
 name: pytest
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -19,15 +16,15 @@ jobs:
       matrix:
         python-version: [3.8]
     steps:
-      # デプロイ用ディレクトリを作成する
-      - name: Make Directory and Extract tgz
+      # 作業用ディレクトリを作成
+      - name: Make Directory
         run: |
           mkdir _deploy
-          cd _deploy
-          tar xvf ../dlapp_skelton.tgz
           echo $(ls -la)
+          cd _deploy
+          echo $(pws)
 
-      # Assetsをgoogle driveからコピーする
+      # アセットをgoogle driveからコピー
       - name: Download from Google Drive
         uses: satackey/action-google-drive@v1
         with:
@@ -38,7 +35,13 @@ jobs:
           google-client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
           google-client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
 
-      # ディレクトリを移動、チェックアウトを準備
+      # アセットを解凍
+      - name: Extract tgz
+        run: |
+          tar xvf ../dlapp_skelton.tgz
+          echo $(ls -la)
+
+      # チェックアウト先に移動
       - name: ExtractMake Directory and Extract tgz
         run: |
           cd drt
@@ -50,11 +53,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # デプロイ用tgzを作成する
-      - name: Make Deploy file
+      # チェックアウト結果を確認
+      - name: Echo checkout result
         run: |
           echo $(pwd)
           echo $(ls -la)
+
+      # デプロイ用tgzを作成する
+      - name: Make Deploy file
+        run: |
           tar zcvf ../dhfs.tgz .
           cd ..
           echo $(pwd)
