@@ -5,6 +5,6 @@
 - [x] pytest
 - [x] skicka setup for gdrive access
 - [ ] copy from gdrive
-- [ ] copy to gdrive
+- [x] copy to gdrive
 - [ ] exec build script
 

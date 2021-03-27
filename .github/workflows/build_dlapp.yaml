@@ -19,43 +19,55 @@ jobs:
       matrix:
         python-version: [3.8]
     steps:
-      # リポジトリをチェックアウトする
+      # デプロイ用ディレクトリを作成する
+      - name: Make Directory and Extract tgz
+        run: |
+          mkdir _deploy
+          cd _deploy
+          tar xvf ../dlapp_skelton.tgz
+          echo $(ls -la)
+
+      # Assetsをgoogle driveからコピーする
+      - name: Download from Google Drive
+        uses: satackey/action-google-drive@v1
+        with:
+          skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
+          download-from: _actions_assets/dlapp_skelton.tgz
+          download-to: .
+          # For those who set up Google Drive API client ID and secret themselves
+          google-client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
+          google-client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+
+      # ディレクトリを移動、チェックアウトを準備
+      - name: ExtractMake Directory and Extract tgz
+        run: |
+          cd drt
+          echo $(pwd)
+          echo $(ls -la)
+
+      # リポジトリをチェックアウト
       # See: https://github.com/actions/checkout
       - name: Checkout
         uses: actions/checkout@v2
 
-      # Python のランタイムをセットアップする
-      # バージョンは `strategy.matrix` に並べたものを指定する
-      # See: https://github.com/actions/setup-python
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v1
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      # Poetry そのものをインストールする
-      - name: Install Poetry
+      # デプロイ用tgzを作成する
+      - name: Make Deploy file
         run: |
-          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-
-      # Poetry へのパスを通す
-      - name: Add path for Poetry
-        run: echo "$HOME/.poetry/bin" >> $GITHUB_PATH
-
-      # インストールした Poetry を使って必要な Python パッケージをインストールする
-      - name: Install Dependencies
-        run: poetry install --no-interaction
-
-      # # pytest を実行する
-      # - name: Run Tests
-      #   run: poetry run pytest test --cov=./slack_api_decorator --cov-report=xml
+          echo $(pwd)
+          echo $(ls -la)
+          tar zcvf ../dhfs.tgz .
+          cd ..
+          echo $(pwd)
+          echo $(ls -la)
 
       # 成果物をgoogle driveへコピーする
       - name: Upload to Google Drive
         uses: satackey/action-google-drive@v1
         with:
           skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
-          upload-from: ./README.md
-          upload-to: ./README.md
+          upload-from: ./dhfs.tgz
+          upload-to: _actions_artifacts/dhfs.tgz
+
           # For those who set up Google Drive API client ID and secret themselves
           google-client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
           google-client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
