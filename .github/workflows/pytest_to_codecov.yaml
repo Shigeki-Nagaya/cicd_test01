@@ -5,8 +5,8 @@ on:
   push:
     branches:
       - develop
-    paths:
-      - .github/workflow/pytest_to_codecov.yaml
+    # paths:
+    #   - .github/workflow/pytest_to_codecov.yaml
   # workflow_dispatch:
   #   inputs:
   #     name:
