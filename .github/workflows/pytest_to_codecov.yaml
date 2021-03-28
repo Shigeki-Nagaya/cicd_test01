@@ -5,6 +5,15 @@ on:
   push:
     branches:
       - develop
+    paths:
+      - .github/workflow/pytest_to_codecov.yaml
+
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Is Manually triggered?"
+        required: false
+        default: "yes"
 
 jobs:
   pytest:
