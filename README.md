@@ -16,3 +16,5 @@
 - [x] make publish script (Publish for STB directly)
 - [ ] Debug settings: Debug flag ACTIONS_STEP_DEBUG
 - [x] make publish script (Publish for Crew Gmail)
+
+[![pytest](https://github.com/Shigeki-Nagaya/cicd_test01/actions/workflows/pytest_to_codecov.yaml/badge.svg?branch=develop)](https://github.com/Shigeki-Nagaya/cicd_test01/actions/workflows/pytest_to_codecov.yaml)
