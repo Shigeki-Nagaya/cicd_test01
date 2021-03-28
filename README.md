@@ -2,7 +2,7 @@
 
 # cicd_test01
 
-## Finished
+## Finished ToDo
 - [x] pytest
 - [x] add badge for actions
 - [x] skicka setup for gdrive access
@@ -13,20 +13,14 @@
 - [x] Debug settings: Debug flag ACTIONS_RUNNER_DEBUG
 - [x] Debug settings: Debug flag ACTIONS_STEP_DEBUG
 - [x] Debug settings: Debug tool - act
-
-
-
-
-## Todo
-- [ ] make publish script (Publish for STB directly)
-- [ ] make publish script (Publish for Crew Gmail)
-
 - [x] Debug settings: Add trigger workflow_dispatch
 
 
+## WIP Todo
+- [ ] make publish script (Publish for STB directly)
+- [ ] make publish script (Publish for Crew Gmail)
 
-
-
+---
 
 # Create Workflow dispatch event
 
@@ -34,7 +28,7 @@
 ```
 # TOKEN
 
-export GIT_TOKEN=19e9a0d483488447105997de881604383e729de2
+export GIT_TOKEN=19e9a0d4834884************
 ```
 
 ### Publish Event
