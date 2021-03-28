@@ -7,12 +7,13 @@ on:
       - develop
     # paths:
     #   - .github/workflow/pytest_to_codecov.yaml
-  # workflow_dispatch:
-  #   inputs:
-  #     name:
-  #       description: "Is Manually triggered?"
-  #       required: false
-  #       default: "yes"
+
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Is Manually triggered?"
+        required: false
+        default: "yes"
 
 jobs:
   pytest:
@@ -24,27 +25,31 @@ jobs:
       matrix:
         python-version: [3.6]
     steps:
-      # リポジトリをチェックアウトする
-      # See: https://github.com/actions/checkout
-      - name: Checkout
-        uses: actions/checkout@v2
-
       # Python のランタイムをセットアップする
       # バージョンは `strategy.matrix` に並べたものを指定する
       # See: https://github.com/actions/setup-python
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
 
       # Poetry そのものをインストールする
       - name: Install Poetry
         run: |
-          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3
 
       # Poetry へのパスを通す
       - name: Add path for Poetry
-        run: echo "$HOME/.poetry/bin" >> $GITHUB_PATH
+        shell: bash
+        run: |
+          echo "\$HOME: $HOME"
+          echo "\$GITHUB_PATH: " + $PATH
+          echo "$HOME/.poetry/bin" >> $GITHUB_PATH
+
+      # リポジトリをチェックアウトする
+      # See: https://github.com/actions/checkout
+      - name: Checkout
+        uses: actions/checkout@v2
 
       # インストールした Poetry を使って必要な Python パッケージをインストールする
       - name: Install Dependencies
