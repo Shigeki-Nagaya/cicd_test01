@@ -2,7 +2,7 @@
 
 # cicd_test01
 
-# Finished
+## Finished
 - [x] pytest
 - [x] add badge for actions
 - [x] skicka setup for gdrive access
@@ -14,10 +14,37 @@
 - [x] Debug settings: Debug flag ACTIONS_STEP_DEBUG
 - [x] Debug settings: Debug tool - act
 
+
+
+
 ## Todo
 - [ ] make publish script (Publish for STB directly)
 - [ ] make publish script (Publish for Crew Gmail)
 
-- [ ] Debug settings: Add trigger workflow_dispatch
+- [x] Debug settings: Add trigger workflow_dispatch
+
+
+
+
+
+
+# Create Workflow dispatch event
+
+### Setting Private Token
+```
+# TOKEN
+
+export GIT_TOKEN=19e9a0d483488447105997de881604383e729de2
+```
+
+### Publish Event
+```
+# Command
+curl \                                                                  
+  -H "Accept: application/vnd.github.v3+json" \
+  -H "Authorization: token $GIT_TOKEN" \
+  https://api.github.com/repos/Shigeki-Nagaya/cicd_test01/actions/workflows/7198850/dispatches \
+  -d '{"ref":"develop"}'
+```
 
 
