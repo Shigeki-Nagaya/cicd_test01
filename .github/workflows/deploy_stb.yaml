@@ -41,12 +41,15 @@ jobs:
         run: touch dhfc.tar.gz
 
       # scp dlapp file to STB
+      # - name: copy file via ssh password
+      #   uses: appleboy/scp-action@master
+      #   with:
+      #     host: ${{ secrets.HOST }}
+      #     username: ${{ secrets.USERNAME }}
+      #     password: ${{ secrets.PASSWORD }}
+      #     port: ${{ secrets.PORT }}
+      #     source: "./dhfc.tar.gz"
+      #     target: "/tmp"
+
       - name: copy file via ssh password
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          source: "./dhfc.tar.gz"
-          target: "/tmp"
+        run: scp -p 45391 ./dhfc.tar.gz admin@192.168.2.54:/tmp
