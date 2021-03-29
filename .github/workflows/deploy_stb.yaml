@@ -53,6 +53,6 @@ jobs:
 
       - name: copy file via ssh password
         run: |
-          alias 
-          u54
-          sshpass -p crew scp -o StrictHostKeyChecking=no -P 45391 ./dhfc.tar.gz admin@192.168.2.54:/tmp
+          /Users/nagayaoh/Desktop/Workplace/NP/Ansible/54/BuildEnv54.sh
+          sleep 5
+          sshpass -p crew scp -o StrictHostKeyChecking=no -P 45391 ./dhfc.tar.gz admin@192.168.2.54:/mnt/sdcard
