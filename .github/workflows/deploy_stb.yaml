@@ -19,8 +19,7 @@ jobs:
   deploy:
     name: deploy dlapp using google drive assets
     # 実行環境として `ubuntu-latest` という名前のものを選ぶ
-    runs-on: ubuntu-latest
-    # 複数の Python のバージョンでテストするために `strategy.matrix` を設定する
+    runs-on: self-hosted
 
     steps:
       # 成果物をgoogle driveからDLする
