@@ -18,25 +18,27 @@ on:
 jobs:
   deploy:
     name: deploy dlapp using google drive assets
-    # 実行環境として `ubuntu-latest` という名前のものを選ぶ
     runs-on: self-hosted
 
     steps:
-      # 成果物をgoogle driveからDLする
-      - name: Download to Google Drive
-        uses: satackey/action-google-drive@v1
-        with:
-          skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
-          download-from: _actions_artifacts/dhfs-20210327-122745.tgz
-          download-to: ./dhfc.tar.gz
+      # # 成果物をgoogle driveからDLする
+      # - name: Download to Google Drive
+      #   uses: satackey/action-google-drive@v1
+      #   with:
+      #     skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
+      #     download-from: _actions_artifacts/dhfs-20210327-122745.tgz
+      #     download-to: ./dhfc.tar.gz
 
-          # For those who set up Google Drive API client ID and secret themselves
-          google-client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
-          google-client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+      #     # For those who set up Google Drive API client ID and secret themselves
+      #     google-client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
+      #     google-client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
 
       # 確認
       - name: Check Directory Tree
         run: tree
+
+      - name: Touch target
+        run: touch dhfc.tar.gz
 
       # scp dlapp file to STB
       - name: copy file via ssh password
