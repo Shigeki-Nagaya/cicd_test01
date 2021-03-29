@@ -1,0 +1,40 @@
+# ここに設定した名前がActions上に表示される
+name: deploy
+
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - .github/workflow/deploy_stb.yaml
+
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Is Manually triggered?"
+        required: false
+        default: "yes"
+
+jobs:
+  deploy:
+    name: deploy dlapp using google drive assets
+    # 実行環境として `ubuntu-latest` という名前のものを選ぶ
+    runs-on: ubuntu-latest
+    # 複数の Python のバージョンでテストするために `strategy.matrix` を設定する
+
+    steps:
+      # 成果物をgoogle driveからDLする
+      - name: Download to Google Drive
+        uses: satackey/action-google-drive@v1
+        with:
+          skicka-tokencache-json: ${{ secrets.SKICKA_TOKENCACHE_JSON }}
+          download-from: _actions_artifacts/dhfs-20210327-122745.tgz
+          download-to: ./dhfc.tar.gz
+
+          # For those who set up Google Drive API client ID and secret themselves
+          google-client-id: ${{ secrets.GOOGLE_CLIENT_ID }}
+          google-client-secret: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+
+      # 確認
+      - name: Check Directory Tree
+        run: tree
