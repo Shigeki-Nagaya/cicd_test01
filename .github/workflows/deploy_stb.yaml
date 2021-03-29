@@ -52,4 +52,4 @@ jobs:
       #     target: "/tmp"
 
       - name: copy file via ssh password
-        run: scp -p 45391 ./dhfc.tar.gz admin@192.168.2.54:/tmp
+        run: scp -P 45391 ./dhfc.tar.gz admin@192.168.2.54:/tmp
