@@ -55,4 +55,5 @@ jobs:
         run: |
           /Users/nagayaoh/Desktop/Workplace/NP/Ansible/54/BuildEnv54.sh
           sleep 5
-          sshpass -p crew scp -o StrictHostKeyChecking=no -P 45391 ./dhfc.tar.gz admin@192.168.2.54:/mnt/sdcard
+          sshpass -p ubuntu scp -o StrictHostKeyChecking=no -P 45391 ./dhfc.tar.gz ubuntu@192.168.2.54:/mnt/sdcard
+        # sshpass -p crew scp -o StrictHostKeyChecking=no -P 45391 ./dhfc.tar.gz admin@192.168.2.54:/mnt/sdcard
